@@ -22,7 +22,7 @@ class Usuario
     private ?string $correo = null;
 
     #[ORM\Column,  Assert\NotBlank(message: 'El telefono es obligatorio')]
-    private ?int $telefono = null;
+    private ?string $telefono = null;
 
     public function getId(): ?int
     {
@@ -53,12 +53,12 @@ class Usuario
         return $this;
     }
 
-    public function getTelefono(): ?int
+    public function getTelefono(): ?string
     {
         return $this->telefono;
     }
 
-    public function setTelefono(int $telefono): static
+    public function setTelefono(string $telefono): static
     {
         $this->telefono = $telefono;
 
