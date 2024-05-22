@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Doctrine
+{% endblock %}
+
+{% block body %}
+  <h1>Ver Alumnos</h1>
+  {# Creamos una tabla para mostrar los datos en la base de datos #}
+  <div class="table-responsive mt-5">
+    <div class="col-12 text-end mb-3">
+      <a href="{{ path('doctrine_add') }}" class="btn btn-success"><i class="bi bi-plus-lg"></i> Agregar</a>
+    </div>
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Telefono</th>
+        <th>Acciones</th>
+      </thead>
+      <tbody>
+        {# Creamos un For para ir recorriendo la informacion de la base de datos en la tabla #}
+        {% for dato in datos %}
+          <tr>
+            <td>{{ dato.id }}</td>
+            <td>{{ dato.nombre }}</td>
+            <td>{{ dato.correo }}</td>
+            <td>{{ dato.telefono }}</td>
+            <td style="display: flex; justify-content: space-evenly; align-items: center">
+              <p>
+                <a href="#"><i class="bi bi-pencil-square" style="font-size: 20px;"></i></a>
+              </p>
+              <p>
+                <a href="#"><i class="bi bi-trash3" style="font-size: 20px; color: red"></i></a>
+              </p>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

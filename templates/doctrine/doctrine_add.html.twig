@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Doctrine
+{% endblock %}
+
+{% block body %}
+  <h1>Registrar Alumno</h1>
+  <div class="row">
+    <form action="{{ url('doctrine_add') }}" method="post" class="row">
+      <div class="col-12 mt-2">
+        {# Validamos si existen errores #}
+        {% if errors %}
+          <div class="alert alert-danger alert-dismissible fade show">
+            <ul>
+              {% for error in errors %}
+                <li>{{ error.message }}</li>
+              {% endfor %}
+            </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endif %}
+
+        {% for message in app.flashes('mensaje') %}
+          <div class="alert alert-{{ app.flashes('css')[0] }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="col-6 mt-2">
+        <div class="form-group">
+          <label for="categoria_form_nombre">Nombre</label>
+          {{ form_widget(form.nombre, { required: false, attr: { class: 'form-control', id: 'categoria_form_nombre' } }) }}
+        </div>
+
+        <div class="form-group">
+          <label for="categoria_form_correo">Correo</label>
+          {{ form_widget(form.correo, { required: false, attr: { class: 'form-control', id: 'categoria_form_correo' } }) }}
+        </div>
+
+        <div class="form-group">
+          <label for="categoria_form_telefono">Telefono</label>
+          {{ form_widget(form.telefono, { required: false, attr: { class: 'form-control', id: 'categoria_form_telefono' } }) }}
+        </div>
+      </div>
+
+      <div class="col-12 mt-4">
+        <input type="hidden" name="token" value="{{ csrf_token('generico') }}" />
+        <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i> Enviar</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}
