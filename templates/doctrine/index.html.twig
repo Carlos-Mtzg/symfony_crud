@@ -1,11 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  Doctrine
+  Consultar
 {% endblock %}
 
 {% block body %}
   <h1>Ver Alumnos</h1>
+  {% for message in app.flashes('mensaje') %}
+    <div class="alert alert-{{ app.flashes('css')[0] }} alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endfor %}
   {# Creamos una tabla para mostrar los datos en la base de datos #}
   <div class="table-responsive mt-5">
     <div class="col-12 text-end mb-3">
@@ -29,10 +35,10 @@
             <td>{{ dato.telefono }}</td>
             <td style="display: flex; justify-content: space-evenly; align-items: center">
               <p>
-                <a href="#"><i class="bi bi-pencil-square" style="font-size: 20px;"></i></a>
+                <a href="{{ path('doctrine_edit', { id: dato.id }) }}"><i class="bi bi-pencil-square" style="font-size: 20px;"></i></a>
               </p>
               <p>
-                <a href="#"><i class="bi bi-trash3" style="font-size: 20px; color: red"></i></a>
+                <a href="javastript:void(0)" onclick="confirmarSweet('Desea eliminar el registro?','{{ path('doctrine_delete', { id: dato.id }) }}' )"><i class="bi bi-trash3" style="font-size: 20px; color: red"></i></a>
               </p>
             </td>
           </tr>

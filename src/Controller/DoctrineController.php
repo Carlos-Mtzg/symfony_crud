@@ -85,4 +85,63 @@ class DoctrineController extends AbstractController
         // Renderizamos la pantalla de creación de usuarios y pasamos el formulario y un array vacío de errores
         return $this->render('doctrine/doctrine_add.html.twig', ['form' => $form, 'errors' => array()]);
     }
+
+    // Controlador para modificar los datos de la tabla usuario
+    #[Route('/doctrine/edit/{id}', name: 'doctrine_edit')]
+    public function user_edit(int $id, Request $request, ValidatorInterface $validator): Response
+    {
+        // Creamos una instancia de la entidad Usuario con una consulta a la base de datos
+        // Select * from usuario where id = $id
+        $entity = $this->em->getRepository(Usuario::class)->find($id);
+        // Validar si la entidad es nula
+        if (!$entity) {
+            throw $this->createNotFoundException(
+                'No se encontró el registro con el id: ' . $id
+            );
+        }
+        $form = $this->createForm(UsuarioFormType::class, $entity);
+        $form->handleRequest($request);
+        $submittedToken = $request->request->get('token');
+        if ($form->isSubmitted()) {
+            if ($this->isCsrfTokenValid('generico', $submittedToken)) {
+                $errors = $validator->validate($entity);
+                if (count($errors) > 0) {
+                    return $this->render('doctrine/doctrine_edit.html.twig', compact('form', 'errors', 'entity'));
+                } else {
+                    $campos = $form->getData();
+                    $entity->setNombre($campos->getNombre());
+                    $entity->setCorreo($campos->getCorreo());
+                    $entity->setTelefono($campos->getTelefono());
+                    // $this->em->persist($entity);
+                    $this->em->flush();
+                    $this->addFlash('css', 'success');
+                    $this->addFlash('mensaje', 'Se modifico el registro exitosamente');
+                    return $this->redirectToRoute('doctrine_edit', ['id' => $id]);
+                }
+            } else {
+                $this->addFlash('css', 'warning');
+                $this->addFlash('mensaje', 'Ocurrió un error inesperado');
+                return $this->redirectToRoute('doctrine_edit', ['id' => $id]);
+            }
+        }
+        return $this->render('doctrine/doctrine_edit.html.twig', ['form' => $form, 'errors' => array(), 'entity' => $entity]);
+    }
+
+    // Controlador para eliminar los datos de la tabla usuario
+    #[Route('/doctrine/delete/{id}', name: 'doctrine_delete')]
+    public function user_delete(int $id, Request $request)
+    {
+        $entity = $this->em->getRepository(Usuario::class)->find($id);
+        // Validar si la entidad es nula
+        if (!$entity) {
+            throw $this->createNotFoundException(
+                'No se encontró el registro con el id: ' . $id
+            );
+        }
+        $this->em->remove($entity);
+        $this->em->flush();
+        $this->addFlash('css', 'success');
+        $this->addFlash('mensaje', 'Se elimino el registro exitosamente');
+        return $this->redirectToRoute('doctrine_inicio');
+    }
 }

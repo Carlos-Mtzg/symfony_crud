@@ -1,24 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  Agregar
+  Editar
 {% endblock %}
 
 {% block body %}
-  <h1>Registrar Alumno</h1>
-  <br>
+  <h1>Editar Alumno</h1>
+  <br />
   {# Navegacion #}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
         <a href="{{ path('doctrine_inicio') }}">Home</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page">Crear</li>
+      <li class="breadcrumb-item active" aria-current="page">Editar</li>
     </ol>
   </nav>
-  
+
   <div class="row">
-    <form action="{{ url('doctrine_add') }}" method="post" class="row">
+    <form action="{{ url('doctrine_edit', { id: entity.id }) }}" method="post" class="row">
       <div class="col-12 mt-2">
         {# Validamos si existen errores #}
         {% if errors %}
@@ -42,17 +42,17 @@
       <div class="col-6 mt-2">
         <div class="form-group">
           <label for="categoria_form_nombre">Nombre</label>
-          {{ form_widget(form.nombre, { required: false, attr: { class: 'form-control', id: 'categoria_form_nombre' } }) }}
+          {{ form_widget(form.nombre, { required: true, attr: { class: 'form-control', id: 'categoria_form_nombre' } }) }}
         </div>
 
         <div class="form-group">
           <label for="categoria_form_correo">Correo</label>
-          {{ form_widget(form.correo, { required: false, attr: { class: 'form-control', id: 'categoria_form_correo' } }) }}
+          {{ form_widget(form.correo, { required: true, attr: { class: 'form-control', id: 'categoria_form_correo' } }) }}
         </div>
 
         <div class="form-group">
           <label for="categoria_form_telefono">Telefono</label>
-          {{ form_widget(form.telefono, { required: false, attr: { class: 'form-control', id: 'categoria_form_telefono' } }) }}
+          {{ form_widget(form.telefono, { required: true, attr: { class: 'form-control', id: 'categoria_form_telefono' } }) }}
         </div>
       </div>
 
