@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+  <div class="row my-5">
+    <div class="col d-flex align-items-center">
+      <h1>Mostrar Registros</h1>
+      <a href="{{ path('crud_add') }}" class="btn btn-primary ms-auto">
+        Agregar
+        <i class="bi bi-plus-circle" style="margin-left: 8px;"></i>
+      </a>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th class="text-center">#</th>
+          <th class="text-center">Name</th>
+          <th class="text-center">Lastname</th>
+          <th class="text-center">Email</th>
+          <th class="text-center">Phone</th>
+          <th class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if (users|length) > 0 %}
+          {% for item in users %}
+            <tr>
+              <td class="text-center">{{ item.id }}</td>
+              <td class="text-center">{{ item.Name }}</td>
+              <td class="text-center">{{ item.lastname }}</td>
+              <td class="text-center">{{ item.email }}</td>
+              <td class="text-center">{{ item.phone }}</td>
+              <td class="text-center">
+                <a href="{{ path('crud_update', { id: item.id }) }}" class="btn"><i class="bi bi-pencil-square"></i></a>
+                {# <a href="{{ path('crud_delete', { id: item.id }) }}" class="btn" style="color: red;"><i class="bi bi-trash"></i></a> #}
+                <a href="javastript:void(0)" class="btn" style="color: red;" onclick="confirmarSweet('¿Estás seguro de eliminar el registro?','{{ path('crud_delete', { id: item.id }) }}' )"><i class="bi bi-trash"></i></a>
+              </td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="6" class="text-center">Sin registros</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
