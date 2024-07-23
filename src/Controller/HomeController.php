@@ -35,7 +35,9 @@ class HomeController extends AbstractController
     public function add(Request $request): Response
     {
         $user = new User();
-        $form = $this->createForm(UserFormType::class, $user);
+        $form = $this->createForm(UserFormType::class, $user, [
+            'is_edit' => false,
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -71,7 +73,9 @@ class HomeController extends AbstractController
                 'No se encontro el registro con el id: ' . $id
             );
         }
-        $form = $this->createForm(UserFormType::class, $user);
+        $form = $this->createForm(UserFormType::class, $user, [
+            'is_edit' => true,
+        ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             try {
