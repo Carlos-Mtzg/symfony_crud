@@ -85,17 +85,17 @@ class User
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addPropertyConstraint('name', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('lastname', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('name', new Assert\NotBlank(['message' => 'Este campo no puede quedar vacío']));
+        $metadata->addPropertyConstraint('lastname', new Assert\NotBlank(['message' => 'Este campo no puede quedar vacío']));
 
-        $metadata->addPropertyConstraint('phone', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('phone', new Assert\NotBlank(['message' => 'Este campo no puede quedar vacío']));
         $metadata->addPropertyConstraint('phone', new Regex([
             'pattern' => '/^\d{10}$/',
-            'message' => 'This field cannot contain letters and must contain only 10 digits'
+            'message' => 'Este campo no puede contener letras y solo debe tener 10 dígitos'
         ]));
 
-        $metadata->addPropertyConstraint('email', new Assert\Email());
-        $metadata->addPropertyConstraint('email', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('email', new Assert\Email(['message' => 'Este campo no puede quedar vacío']));
+        $metadata->addPropertyConstraint('email', new Assert\NotBlank(['message' => 'Este campo no puede quedar vacío']));
         $metadata->addConstraint(new UniqueEntity([
             'fields' => 'email',
         ]));
