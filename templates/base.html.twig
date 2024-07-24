@@ -6,8 +6,8 @@
 
     {# Title #}
     <title>
-      {% block title %}
-        CRUD -
+      CRUD -{% block title %}
+
       {% endblock %}
     </title>
     {# Title #}
@@ -15,17 +15,27 @@
     {# Styles #}
     <link rel="stylesheet" href="{{ absolute_url(asset('css/bootstrap.min.css')) }}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="{{ absolute_url(asset('css/styles.css')) }}" />
     {# Styles #}
   </head>
 
   <body>
     <main class="container">
-      {# Contenido #}
-      {% block body %}
+      <div class="content">
+        {# Contenido #}
+        {% block body %}
 
-      {% endblock %}
-      {# Contenido #}
+        {% endblock %}
+        {# Contenido #}
+      </div>
     </main>
+
+    <footer class="d-flex justify-content-center">
+      <p>
+        Desarrollado por <a href="https://github.com/Carlos-Mtzg">Carlos Mtzg</a>
+        <i class="bi bi-github"></i>
+      </p>
+    </footer>
 
     {# JavaScript #}
     <script src="{{ absolute_url(asset('js/bootstrap.bundle.min.js')) }}"></script>

@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-
+  Update
 {% endblock %}
 
 {% block body %}
-  <div class="row my-5">
+  <div class="row mt-5 mb-3">
     <div class="col">
       <h1>Actualizar Registro</h1>
       <nav aria-label="breadcrumb">
@@ -21,15 +21,15 @@
 
   {{ form_start(form, { attr: { 'data-turbo': 'false' } }) }}
   <div class="row">
-    <div class="col-6">
+    <div class="col-12 col-md-6">
       <div class="form-group">{{ form_row(form.name) }}</div>
       <div class="form-group">{{ form_row(form.lastname) }}</div>
     </div>
-    <div class="col-6">
+    <div class="col-12 col-md-6">
       <div class="form-group">{{ form_row(form.email) }}</div>
       <div class="form-group">{{ form_row(form.phone) }}</div>
     </div>
-    <div class="col mt-5 d-flex">
+    <div class="col d-flex">
       <button type="submit" class="btn btn-primary ms-auto">
         Guardar
         <i class="bi bi-floppy-fill" style="margin-left: 8px;"></i>
