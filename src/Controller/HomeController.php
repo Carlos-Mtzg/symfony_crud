@@ -9,13 +9,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Flasher\Prime\FlasherInterface;
 
 class HomeController extends AbstractController
 {
     private $em;
 
-    public function __construct(EntityManagerInterface $em, FlasherInterface $flasher)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
